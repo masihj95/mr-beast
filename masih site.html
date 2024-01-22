@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Clothing Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #87CEEB, #8A2BE2);
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product {
+            width: 300px;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+
+        .cart-section {
+            width: 300px;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .cart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cart p {
+            margin: 0;
+        }
+
+        .checkout-button {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to My Clothing Store</h1>
+</header>
+
+<main>
+    <div class="product">
+        <img src="https://shopmrbeasst.com/wp-content/uploads/2023/03/16388410725e874f788e-1.jpg" alt="Product 1">
+        <h2>Product 1</h2>
+        <p>Description of Product 1.</p>
+        <p>Price: $20.00</p>
+        <button onclick="addToCart('Product 1', 20.00)">Add to Cart</button>
+    </div>
+
+    <!-- Add more products as needed -->
+
+    <div class="cart-section">
+        <div class="cart">
+            <p>Shopping Cart</p>
+            <div id="cartItems"></div>
+            <p id="subtotal">Subtotal: $0.00</p>
+            <button class="checkout-button" onclick="openModal()">Checkout</button>
+        </div>
+    </div>
+</main>
+
+<div id="checkoutModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" style="float: right; cursor: pointer;">&times;</span>
+        <h2>Checkout</h2>
+        <p>Thank you for shopping with us!</p>
+        <!-- Add checkout form or payment processing integration here -->
+        <button onclick="completeCheckout()">Complete Checkout</button>
+    </div>
+</div>
+
+<script>
+    let cart = [];
+    
+    function addToCart(productName, price) {
+        cart.push({ name: productName, price: price });
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItemsElement = document.getElementById('cartItems');
+        const subtotalElement = document.getElementById('subtotal');
+        cartItemsElement.innerHTML = '';
+
+        let total = 0;
+
+        cart.forEach(item => {
+            cartItemsElement.innerHTML += `<p>${item.name} - $${item.price.toFixed(2)}</p>`;
+            total += item.price;
+        });
+
+        subtotalElement.textContent = `Subtotal: $${total.toFixed(2)}`;
+    }
+
+    function openModal() {
+        const modal = document.getElementById('checkoutModal');
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('checkoutModal');
+        modal.style.display = 'none';
+    }
+
+    function completeCheckout() {
+        alert('Checkout completed! (Simulated)');
+        cart = [];
+        updateCart();
+        closeModal();
+    }
+</script>
+
+<footer>
+    <p>&copy; 2024 My Clothing Store. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
